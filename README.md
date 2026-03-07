@@ -24,12 +24,41 @@ The frontend communicates with a **Spring Boot backend** using REST APIs.
 
 ---
 
-## 🔗 Backend Integration
+## 🔗 Docker Dashboard
 Docker
 <img width="1919" height="1015" alt="image" src="https://github.com/user-attachments/assets/f791bbbc-8795-4cc4-b390-aa40794c78fd" />
 
-Deployment
+Deployment Frontend in versel
 live url
 https://textile-ui.vercel.app
 
 The frontend connects to the backend using an environment variable:
+
+---
+
+## 🔍 Code Quality – SonarCloud
+
+Code quality and security analysis are performed using **SonarCloud**.
+
+SonarCloud automatically analyzes the codebase to detect:
+- Bugs
+- Vulnerabilities
+- Code smells
+- Maintainability issues
+
+### SonarCloud Dashboard
+View the analysis report here:
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/a5ff2541-261f-4eff-b29c-70c980f388e1" />
+
+### Quality Gate Status
+✔ Passed
+
+- Security: A
+- Reliability: A
+- Maintainability: A
+
+SonarCloud was integrated as part of the **DevOps workflow** to ensure code quality before merging pull requests.
+
+---
+
