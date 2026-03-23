@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 function ProductPage() {
 
-const API = "https://product-management-g6dkdcg7b8hygtay.southeastasia-01.azurewebsites.net/api";
+  const API = "https://product-management-g6dkdcg7b8hygtay.southeastasia-01.azurewebsites.net/api";
 
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
@@ -18,26 +18,15 @@ const API = "https://product-management-g6dkdcg7b8hygtay.southeastasia-01.azurew
   });
 
   const fetchProducts = () => {
-    if (!API) {
-      alert("API URL not found ❌");
-      return;
-    }
-
     fetch(`${API}/products`)
-      .then((res) => {
-        console.log("GET STATUS:", res.status);
-        return res.json();
-      })
+      .then((res) => res.json())
       .then(setProducts)
-      .catch((err) => {
-        console.error(err);
-        alert("Fetch products failed ❌");
-      });
+      .catch((err) => console.error(err));
   };
 
   useEffect(() => {
     fetchProducts();
-  }, [API]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -46,11 +35,6 @@ const API = "https://product-management-g6dkdcg7b8hygtay.southeastasia-01.azurew
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!API) {
-      alert("API URL missing ❌");
-      return;
-    }
 
     const url = editingId
       ? `${API}/products/${editingId}`
@@ -63,18 +47,14 @@ const API = "https://product-management-g6dkdcg7b8hygtay.southeastasia-01.azurew
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     })
-      .then((res) => {
-        alert("STATUS: " + res.status); // 🔥 debug
-        return res.json();
-      })
-      .then((data) => {
-        console.log("RESPONSE:", data);
+      .then((res) => res.json())
+      .then(() => {
         fetchProducts();
         resetForm();
       })
       .catch((err) => {
         console.error(err);
-        alert("Error occurred ❌");
+        alert("Something went wrong ❌");
       });
   };
 
@@ -90,10 +70,7 @@ const API = "https://product-management-g6dkdcg7b8hygtay.southeastasia-01.azurew
     fetch(`${API}/products/${id}`, {
       method: "DELETE",
     })
-      .then((res) => {
-        alert("DELETE STATUS: " + res.status);
-        fetchProducts();
-      })
+      .then(() => fetchProducts())
       .catch(() => alert("Delete failed ❌"));
   };
 
