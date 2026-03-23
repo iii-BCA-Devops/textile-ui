@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
 function ProductPage() {
-  const API = process.env.REACT_APP_API_BASE_URL;
+
+const API = "https://product-management-g6dkdcg7b8hygtay.southeastasia-01.azurewebsites.net/api";
 
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
