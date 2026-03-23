@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 
 function ProductPage() {
- const API = process.env.REACT_APP_API_BASE_URL;
-
+  const API = process.env.REACT_APP_API_BASE_URL;
 
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
@@ -18,10 +17,21 @@ function ProductPage() {
   });
 
   const fetchProducts = () => {
+    if (!API) {
+      alert("API URL not found ❌");
+      return;
+    }
+
     fetch(`${API}/products`)
-      .then((res) => res.json())
+      .then((res) => {
+        console.log("GET STATUS:", res.status);
+        return res.json();
+      })
       .then(setProducts)
-      .catch(console.error);
+      .catch((err) => {
+        console.error(err);
+        alert("Fetch products failed ❌");
+      });
   };
 
   useEffect(() => {
@@ -36,6 +46,11 @@ function ProductPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!API) {
+      alert("API URL missing ❌");
+      return;
+    }
+
     const url = editingId
       ? `${API}/products/${editingId}`
       : `${API}/products`;
@@ -46,10 +61,20 @@ function ProductPage() {
       method,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
-    }).then(() => {
-      fetchProducts();
-      resetForm();
-    });
+    })
+      .then((res) => {
+        alert("STATUS: " + res.status); // 🔥 debug
+        return res.json();
+      })
+      .then((data) => {
+        console.log("RESPONSE:", data);
+        fetchProducts();
+        resetForm();
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Error occurred ❌");
+      });
   };
 
   const editProduct = (p) => {
@@ -63,7 +88,12 @@ function ProductPage() {
 
     fetch(`${API}/products/${id}`, {
       method: "DELETE",
-    }).then(fetchProducts);
+    })
+      .then((res) => {
+        alert("DELETE STATUS: " + res.status);
+        fetchProducts();
+      })
+      .catch(() => alert("Delete failed ❌"));
   };
 
   const resetForm = () => {
