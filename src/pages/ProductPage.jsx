@@ -74,22 +74,6 @@ function ProductPage() {
       .catch(() => alert("Delete failed ❌"));
   };
 
-  // 🔥 NEW FEATURE FUNCTION
-  const toggleAvailability = (product) => {
-    fetch(`${API}/products/${product.productId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ...product,
-        available: !product.available,
-      }),
-    })
-      .then(() => fetchProducts())
-      .catch(() => alert("Update failed ❌"));
-  };
-
   const resetForm = () => {
     setEditingId(null);
     setForm({
@@ -159,17 +143,7 @@ function ProductPage() {
               <td>{p.category}</td>
               <td>₹{p.price}</td>
               <td>{p.stockQuantity}</td>
-
-              {/* 🔥 NEW TOGGLE BUTTON */}
-              <td>
-                <button
-                  className="btn small"
-                  onClick={() => toggleAvailability(p)}
-                >
-                  {p.available ? "Yes" : "No"}
-                </button>
-              </td>
-
+              <td>{p.available ? "Yes" : "No"}</td>
               <td>
                 <button className="btn small" onClick={() => editProduct(p)}>Edit</button>
                 <button className="btn danger small" onClick={() => deleteProduct(p.productId)}>Delete</button>
