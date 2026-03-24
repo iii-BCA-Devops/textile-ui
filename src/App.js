@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
+import SignupPage from "./pages/SignupPage";
 
 // Pages
 import ProductPage from "./pages/ProductPage";
@@ -17,6 +18,7 @@ function App() {
           <Link to="/" className="btn primary">Products</Link>
           <Link to="/order" className="btn primary">Place Order</Link>
           <Link to="/orders" className="btn primary">Order History</Link>
+          <Link to="/signup" className="btn primary">Signup</Link> {/* optional */}
         </div>
 
         {/* 🛣️ Routes */}
@@ -24,6 +26,7 @@ function App() {
           <Route path="/" element={<ProductPage />} />
           <Route path="/order" element={<PlaceOrder />} />
           <Route path="/orders" element={<OrderHistory />} />
+          <Route path="/signup" element={<SignupPage />} />
         </Routes>
       </div>
     </BrowserRouter>
